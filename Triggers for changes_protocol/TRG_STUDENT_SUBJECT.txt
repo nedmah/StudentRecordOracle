@@ -1,0 +1,48 @@
+create or replace TRIGGER TRG_STUDENT_SUBJECT
+AFTER DELETE OR INSERT OR UPDATE ON MKM_STUDENT_SUBJECT
+FOR EACH ROW
+BEGIN
+    IF inserting THEN
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'MKM_STUDENT_SUBJECT','idrow',:new.idrow,NULL,:new.idrow,'INSERT',USER,SYSDATE);
+
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'MKM_STUDENT_SUBJECT','fk_student_id',:new.idrow,NULL,:new.fk_student_id,'INSERT',USER,SYSDATE);
+        
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'MKM_STUDENT_SUBJECT','fk_subject_id',:new.idrow,NULL,:new.fk_subject_id,'INSERT',USER,SYSDATE);
+    END IF;
+
+
+
+    IF updating THEN
+        IF :new.idrow != :old.idrow THEN
+            INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+            VALUES (genprimkey('spr_changes'), 'MKM_STUDENT_SUBJECT','idrow',:new.idrow,:old.idrow,:new.idrow,'UPDATE',USER,SYSDATE);
+        end if;
+
+        IF :new.fk_student_id != :old.fk_student_id THEN
+            INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+            VALUES (genprimkey('spr_changes'), 'MKM_STUDENT_SUBJECT','fk_student_id',:old.idrow,:old.fk_student_id,:new.fk_student_id,'UPDATE',USER,SYSDATE);
+        end if;
+    
+        IF :new.fk_subject_id != :old.fk_subject_id THEN
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'MKM_STUDENT_SUBJECT','fk_subject_id',:old.idrow,:old.fk_subject_id,:new.fk_subject_id,'UPDATE',USER,SYSDATE);
+        end if;
+    END IF;
+
+
+
+    IF deleting THEN
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'MKM_STUDENT_SUBJECT','idrow',:old.idrow,:old.idrow,NULL,'DELETE',USER,SYSDATE);
+
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'MKM_STUDENT_SUBJECT','fk_student_id',:old.fk_student_id,:old.fk_student_id,NULL,'DELETE',USER,SYSDATE);
+          
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'MKM_STUDENT_SUBJECT','fk_subject_id',:old.idrow,:old.fk_subject_id,NULL,'DELETE',USER,SYSDATE);
+    END IF;
+
+END;

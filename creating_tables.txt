@@ -1,0 +1,117 @@
+CREATE TABLE Spr_city (
+  idrow VARCHAR2(9) NOT NULL,
+  rowname VARCHAR2(20) NULL,
+  PRIMARY KEY(idrow)
+);
+
+CREATE TABLE Spr_group (
+  idrow VARCHAR2(9) NOT NULL,
+  rownumber VARCHAR2(10) NULL,
+  fk_student_id VARCHAR2(9) NOT NULL,
+  PRIMARY KEY(idrow)
+);
+
+CREATE TABLE Spr_university (
+  idrow VARCHAR2(9) NOT NULL,
+  rowname VARCHAR2(20) NULL,
+  fk_group_id VARCHAR2(9) NOT NULL,
+  PRIMARY KEY(idrow)
+);
+
+CREATE TABLE Spr_department (
+  idrow VARCHAR2(9) NOT NULL,
+  rowname VARCHAR2(20) NULL,
+  PRIMARY KEY(idrow)
+);
+
+CREATE TABLE Spr_school (
+  idrow VARCHAR2(9) NOT NULL,
+  rowname VARCHAR2(20) NULL,
+  PRIMARY KEY(idrow)
+);
+
+CREATE TABLE Spr_professor (
+  idrow VARCHAR2(9) NOT NULL,
+  rowfam VARCHAR2(20) NULL,
+  rowname VARCHAR2(20) NULL,
+  rowotch VARCHAR2(20) NULL,
+  fk_department VARCHAR2(9) NOT NULL,
+  PRIMARY KEY(idrow)
+);
+
+CREATE TABLE Spr_student (
+  idrow VARCHAR2(9) NOT NULL,
+  rowfam VARCHAR2(20) NULL,
+  rowname VARCHAR2(20) NULL,
+  rowotch VARCHAR2(20) NULL,
+  rowsempoints INTEGER,
+  rowINN VARCHAR2(30) NULL,
+  rowSNILS VARCHAR2(30) NULL,
+  rowstudy_form VARCHAR2(6) NULL,
+  fk_school_id VARCHAR2(9) NOT NULL,
+  fk_city_id VARCHAR2(9) NOT NULL,
+  PRIMARY KEY(idrow)
+);
+
+CREATE TABLE Spr_subject (
+  idrow VARCHAR2(9) NOT NULL,
+  rowname VARCHAR2(15) NULL,
+  rowhours INTEGER NULL,
+  fk_department_id VARCHAR2(9) NOT NULL,
+  PRIMARY KEY(idrow)
+);
+
+CREATE TABLE Spr_examRow (
+  idrow VARCHAR2(9) NOT NULL,
+  grade VARCHAR2(1) NULL,
+  fk_student_id VARCHAR2(9) NOT NULL,
+  fk_exam_id VARCHAR2(9) NOT NULL,
+  PRIMARY KEY(idrow)
+);
+
+CREATE TABLE Spr_exam (
+  idrow VARCHAR2(9) NOT NULL,
+  rowname VARCHAR2(20) NULL,
+  rowexam_points INTEGER NULL,
+  rowcabinet VARCHAR2(5) NULL,
+  rowdate DATE NULL,
+  rowsemestr VARCHAR2(1) NULL,
+  rowcontrol_form VARCHAR2(20),
+  fk_professor VARCHAR2(9) NOT NULL,
+  fk_subject_id VARCHAR2(9) NOT NULL,
+  PRIMARY KEY(idrow)
+);
+
+CREATE TABLE Mkm_Professor_subject (
+  idrow VARCHAR2(9) NOT NULL,
+  fk_professor_id VARCHAR2(9) NOT NULL,
+  fk_subject_id VARCHAR2(9) NOT NULL,
+  PRIMARY KEY(idrow)
+);
+
+CREATE TABLE Mkm_Student_subject (
+  idrow VARCHAR2(9) NOT NULL,
+  fk_student_id VARCHAR2(9) NOT NULL,
+  fk_subject_id VARCHAR2(9) NOT NULL,
+  PRIMARY KEY(idrow)
+);
+
+CREATE TABLE Mkm_Student_Exams (
+  idrow VARCHAR2(9) NOT NULL,
+  fk_exam_id VARCHAR2(9) NOT NULL,
+  fk_student_id VARCHAR2(9) NOT NULL,
+  PRIMARY KEY(idrow)
+);
+
+CREATE TABLE Spr_changes (
+  idrow VARCHAR2(9) NOT NULL,
+  table_name VARCHAR2(40) NOT NULL,
+  column_name VARCHAR2(40) NOT NULL,
+  object_id VARCHAR2(40) NOT NULL,
+  oldvalue VARCHAR2(40) NOT NULL,
+  newvalue VARCHAR2(40) NOT NULL,
+  insert_update_delete VARCHAR2(40) NOT NULL,
+  user_name VARCHAR2(40) NOT NULL,
+  change_datetime date NOT NULL,
+  PRIMARY KEY(idrow)
+);

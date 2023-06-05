@@ -1,0 +1,199 @@
+CREATE OR REPLACE function sys.genPrimKey(pTABLE_NAME   NVARCHAR2) return NVARCHAR2 is
+  xResult   NVARCHAR2(10);
+  xNextVal  NUMBER;
+  xSQL      VARCHAR2(1000);
+  
+  lcRegistr1 NVARCHAR2(1);
+  lcRegistr2 NVARCHAR2(1);
+  lcRegistr3 NVARCHAR2(1);
+  lcRegistr4 NVARCHAR2(1);
+  lcRegistr5 NVARCHAR2(1);
+  
+  lnRegistr1 NUMBER;
+  lnRegistr2 NUMBER;
+  lnRegistr3 NUMBER;
+  lnRegistr4 NUMBER;
+  lnRegistr5 NUMBER;
+   
+   cursor cGet(pTABLE_NAME  NVARCHAR2) is
+     select ID
+       from SPR_SYSTEM_TABLE
+      where lower(TABLE_NAME) = lower(pTABLE_NAME);
+   
+   rGet        cGet%ROWTYPE;   
+   eExtend     exception;
+   eObjNull    exception;
+   eNextVal    exception;
+   
+   TYPE tArray is table of NVARCHAR2(1) index by binary_integer;
+   xArrayLV tArray;
+   
+begin
+  open cGet(pTABLE_NAME);
+  fetch cGet into rGet;
+  close cGet;
+  
+  if (rGet.Id is null) then
+    raise eObjNull;
+  end if;
+  
+  xSQL:='select SEQ$'||upper(replace(trim(pTABLE_NAME),'_'))||'.nextval from dual';
+
+  execute immediate xSQL into xNextVal;
+
+  if (xNextVal is null) then
+    raise eNextVal;
+  end if;
+
+  if (62 * 62 * 62 * 62 * 62) < xNextVal then
+   raise eExtend;
+  end if;
+
+  --инициализация  
+  lcRegistr1:= '0';
+  lcRegistr2:= '0';
+  lcRegistr3:= '0';
+  lcRegistr4:= '0';
+  lcRegistr5:= '0';
+  
+  lnRegistr1:= 0;
+  lnRegistr2:= 0;
+  lnRegistr3:= 0;
+  lnRegistr4:= 0;
+  lnRegistr5:= 0;
+  
+
+  xArrayLV( 1):= '0';
+  xArrayLV( 2):= '1';
+  xArrayLV( 3):= '2';
+  xArrayLV( 4):= '3';
+  xArrayLV( 5):= '4';
+  xArrayLV( 6):= '5';
+  xArrayLV( 7):= '6';
+  xArrayLV( 8):= '7';
+  xArrayLV( 9):= '8';
+  xArrayLV(10):= '9';
+  xArrayLV(11):= 'A';
+  xArrayLV(12):= 'B';
+  xArrayLV(13):= 'C';
+  xArrayLV(14):= 'D';
+  xArrayLV(15):= 'E';
+  xArrayLV(16):= 'F';
+  xArrayLV(17):= 'G';
+  xArrayLV(18):= 'H';
+  xArrayLV(19):= 'I';
+  xArrayLV(20):= 'J';
+  xArrayLV(21):= 'K';
+  xArrayLV(22):= 'L';
+  xArrayLV(23):= 'M';
+  xArrayLV(24):= 'N';
+  xArrayLV(25):= 'O';
+  xArrayLV(26):= 'P';
+  xArrayLV(27):= 'Q';
+  xArrayLV(28):= 'R';
+  xArrayLV(29):= 'S';
+  xArrayLV(30):= 'T';
+  xArrayLV(31):= 'U';
+  xArrayLV(32):= 'V';
+  xArrayLV(33):= 'W';
+  xArrayLV(34):= 'X';
+  xArrayLV(35):= 'Y';
+  xArrayLV(36):= 'Z';
+  xArrayLV(37):= 'a';
+  xArrayLV(38):= 'b';
+  xArrayLV(39):= 'c';
+  xArrayLV(40):= 'd';
+  xArrayLV(41):= 'e';
+  xArrayLV(42):= 'f';
+  xArrayLV(43):= 'g';
+  xArrayLV(44):= 'h';
+  xArrayLV(45):= 'i';
+  xArrayLV(46):= 'j';
+  xArrayLV(47):= 'k';
+  xArrayLV(48):= 'l';
+  xArrayLV(49):= 'm';
+  xArrayLV(50):= 'n';
+  xArrayLV(51):= 'o';
+  xArrayLV(52):= 'p';
+  xArrayLV(53):= 'q';
+  xArrayLV(54):= 'r';
+  xArrayLV(55):= 's';
+  xArrayLV(56):= 't';
+  xArrayLV(57):= 'u';
+  xArrayLV(58):= 'v';
+  xArrayLV(59):= 'w';
+  xArrayLV(60):= 'x';
+  xArrayLV(61):= 'y';
+  xArrayLV(62):= 'z';
+
+  --смотрим первый регистр
+  IF (1 * 62 * 62 * 62 * 62) < xNextVal then
+    FOR i in 1..62 loop
+      IF (i * 62 * 62 * 62 * 62) < xNextVal  then
+        lnRegistr1:= i * 62 * 62 * 62 * 62;
+        lcRegistr1:= xArrayLV(i + 1);
+      end if;
+    end loop;
+  END IF;
+  
+  xNextVal:= xNextVal - lnRegistr1; 
+
+  --смотрим второй регистр
+  IF (1 * 62 * 62 * 62 ) < xNextVal then
+    FOR i in 1..62 loop
+      IF (i * 62 * 62 * 62) < xNextVal then 
+          lnRegistr2:= i * 62 * 62 * 62;
+          lcRegistr2:= xArrayLV(i + 1);
+      END IF;
+    end loop;
+  END IF; 
+  
+  xNextVal:= xNextVal - lnRegistr2; 
+  
+  --смотрим третий регистр
+  IF (1 * 62 * 62) < xNextVal then
+    FOR i in 1..61 loop
+      IF (i * 62 * 62) < xNextVal then 
+        lnRegistr3:= i * 62 * 62; 
+        lcRegistr3:= xArrayLV(i + 1);
+      END IF;
+    end loop;
+  END IF; 
+  
+  xNextVal:= xNextVal - lnRegistr3; 
+
+  --смотрим четвертый регистр
+  IF (1 * 62) < xNextVal then
+    FOR i in 1..61 loop 
+      IF (i * 62) < xNextVal then
+        lnRegistr4:= i * 62;
+        lcRegistr4:= xArrayLV(i + 1);
+      END IF;
+    end loop;
+  END IF;
+ 
+  xNextVal:= xNextVal - lnRegistr4; 
+  
+  --смотрим пятый регистр
+  IF xNextVal BETWEEN 1 and 62 then
+    lcRegistr5:= xArrayLV(xNextVal);
+  END IF; 
+                        
+  xResult:= lcRegistr1 || lcRegistr2 || lcRegistr3 || lcRegistr4 || lcRegistr5;
+
+  return rGet.Id||'!'||xResult;
+  
+  exception
+    when eNextVal then
+      raise_application_error(-20000,'Не получен следующий ID из последовательности! Обратитесь к разработчику программы!');
+      return '';
+    when eObjNull then
+      raise_application_error(-20000,'ID таблицы не найдено в SYS_OBJECT! Обратитесь к разработчику программы!');
+      return '';
+    when eExtend then
+      raise_application_error(-20000,'Не возможно приращение кода! Обратитесь к разработчику программы!');
+      return '';
+    when others then
+      raise_application_error(-20000,sqlerrm);
+      return '';
+end genPrimKey;

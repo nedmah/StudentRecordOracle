@@ -1,0 +1,9 @@
+SELECT SPR_STUDENT.ROWFAM AS soname,spr_exam.rowdate as date_ex, spr_student.rowsempoints as sem, spr_exam.rowexam_points as exam, AVG(spr_student.rowsempoints + spr_exam.rowexam_points) AS points, AVG(SPR_EXAMROW.grade) AS grade
+FROM SPR_STUDENT
+
+INNER JOIN mkm_student_exams ON SPR_STUDENT.idrow = mkm_student_exams.fk_student_id
+INNER JOIN spr_exam ON spr_exam.idrow = mkm_student_exams.fk_exam_id
+INNER JOIN spr_examrow ON spr_examrow.fk_exam_id = spr_exam.idrow
+
+
+GROUP BY SPR_STUDENT.ROWFAM,spr_exam.rowdate ,spr_student.rowsempoints, spr_exam.rowexam_points, spr_student.rowsempoints + spr_exam.rowexam_points,SPR_EXAMROW.grade;

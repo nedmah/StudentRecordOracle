@@ -1,0 +1,16 @@
+ALTER TABLE Spr_Student ADD CONSTRAINT Spr_Student_fk0 FOREIGN KEY (fk_school_id) REFERENCES Spr_School(idrow);
+ALTER TABLE Spr_Student ADD CONSTRAINT Spr_Student_fk1 FOREIGN KEY (fk_city_id) REFERENCES Spr_city(idrow);
+ALTER TABLE Spr_Exam ADD CONSTRAINT Spr_Exam_fk0 FOREIGN KEY (fk_professor) REFERENCES Spr_Professor(idrow);
+ALTER TABLE Spr_Exam ADD CONSTRAINT Spr_Exam_fk1 FOREIGN KEY (fk_subject_id) REFERENCES Spr_Subject(idrow);
+ALTER TABLE Spr_Professor ADD CONSTRAINT Spr_Professor_fk0 FOREIGN KEY (fk_department) REFERENCES Spr_department(idrow);
+ALTER TABLE Spr_Group ADD CONSTRAINT Spr_Group_fk0 FOREIGN KEY (fk_student_id) REFERENCES Spr_Student(idrow);
+ALTER TABLE Spr_University ADD CONSTRAINT Spr_University_fk0 FOREIGN KEY (fk_group_id) REFERENCES Spr_Group(idrow);
+ALTER TABLE Spr_Subject ADD CONSTRAINT Spr_Subject_fk0 FOREIGN KEY (fk_department_id) REFERENCES Spr_department(idrow);
+ALTER TABLE Mkm_Student_Subject ADD CONSTRAINT Mkm_Student_Subject_fk0 FOREIGN KEY (fk_student_id) REFERENCES Spr_Student(idrow);
+ALTER TABLE Mkm_Student_Subject ADD CONSTRAINT Mkm_Student_Subject_fk1 FOREIGN KEY (fk_subject_id) REFERENCES Spr_Student(idrow);
+ALTER TABLE Mkm_Student_exams ADD CONSTRAINT Mkm_Student_exams_fk0 FOREIGN KEY (fk_exam_id) REFERENCES Spr_Exam(idrow);
+ALTER TABLE Mkm_Student_exams ADD CONSTRAINT Mkm_Student_exams_fk1 FOREIGN KEY (fk_student_id) REFERENCES Spr_Student(idrow);
+ALTER TABLE Mkm_Professor_subject ADD CONSTRAINT Mkm_Professor_subject_fk0 FOREIGN KEY (fk_professor_id) REFERENCES Spr_Professor(idrow);
+ALTER TABLE Mkm_Professor_subject ADD CONSTRAINT Mkm_Professor_subject_fk1 FOREIGN KEY (fk_subject_id) REFERENCES Spr_Subject(idrow);
+ALTER TABLE Spr_ExamRow ADD CONSTRAINT Spr_ExamRow_fk0 FOREIGN KEY (fk_student_id) REFERENCES Spr_Student(idrow);
+ALTER TABLE Spr_ExamRow ADD CONSTRAINT Spr_ExamRow_fk1 FOREIGN KEY (fk_exam_id) REFERENCES Spr_Exam(idrow);

@@ -1,0 +1,21 @@
+CREATE TABLE Spr_system_table (
+    id NVARCHAR2(3) NOT NULL PRIMARY KEY,
+    table_name NVARCHAR2(50) NOT NULL
+);
+
+
+INSERT ALL 
+    INTO Spr_system_table VALUES(1, 'SPR_CITY')
+    INTO Spr_system_table VALUES(2, 'SPR_GROUP')
+    INTO Spr_system_table VALUES(3, 'SPR_UNIVERSITY')
+    INTO Spr_system_table VALUES(4, 'SPR_DEPARTMENT')
+    INTO Spr_system_table VALUES(5, 'SPR_SCHOOL')
+    INTO Spr_system_table VALUES(6, 'SPR_PROFESSOR')
+    INTO Spr_system_table VALUES(7, 'SPR_STUDENT')
+    INTO Spr_system_table VALUES(8, 'SPR_SUBJECT')
+    INTO Spr_system_table VALUES(9, 'SPR_EXAMROW')
+    INTO Spr_system_table VALUES(10, 'SPR_EXAM')
+    INTO Spr_system_table VALUES(11, 'MKM_PROFESSOR_SUBJECT')
+    INTO Spr_system_table VALUES(12, 'MKM_STUDENT_SUBJECT')
+    INTO Spr_system_table VALUES(13, 'MKM_STUDENT_EXAMS')
+SELECT * FROM dual;

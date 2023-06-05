@@ -1,0 +1,9 @@
+SELECT SPR_city.rowname AS city, AVG(SPR_EXAMROW.grade) AS grade, AVG(spr_student.rowsempoints + spr_exam.rowexam_points) AS points
+FROM SPR_city
+
+inner join spr_student on spr_student.fk_city_id = spr_city.idrow
+inner join mkm_student_exams on mkm_student_exams.fk_student_id = spr_student.idrow
+inner join spr_exam on spr_exam.idrow = mkm_student_exams.fk_exam_id
+INNER JOIN spr_examrow ON spr_examrow.fk_exam_id = spr_exam.idrow
+
+GROUP BY SPR_city.rowname;

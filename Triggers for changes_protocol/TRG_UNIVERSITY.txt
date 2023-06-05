@@ -1,0 +1,48 @@
+create or replace TRIGGER TRG_UNIVERSITY
+AFTER DELETE OR INSERT OR UPDATE ON SPR_UNIVERSITY
+FOR EACH ROW
+BEGIN
+    IF inserting THEN
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_UNIVERSITY','idrow',:new.idrow,NULL,:new.idrow,'INSERT',USER,SYSDATE);
+
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_UNIVERSITY','rowname',:new.idrow,NULL,:new.rowname,'INSERT',USER,SYSDATE);
+
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_UNIVERSITY','fk_group_id',:new.idrow,NULL,:new.fk_group_id,'INSERT',USER,SYSDATE);
+    END IF;
+
+
+
+    IF updating THEN
+        IF :new.idrow != :old.idrow THEN
+            INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+            VALUES (genprimkey('spr_changes'), 'SPR_UNIVERSITY','idrow',:new.idrow,:old.idrow,:new.idrow,'UPDATE',USER,SYSDATE);
+        end if;
+
+        IF :new.rowname != :old.rowname THEN
+            INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+            VALUES (genprimkey('spr_changes'), 'SPR_UNIVERSITY','rowname',:old.idrow,:old.rowname,:new.rowname,'UPDATE',USER,SYSDATE);
+        end if;
+
+        IF :new.fk_group_id != :old.fk_group_id THEN
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_UNIVERSITY','fk_group_id',:old.idrow,:old.fk_group_id,:new.fk_group_id,'UPDATE',USER,SYSDATE);
+        end if;
+    END IF;
+
+
+
+    IF deleting THEN
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_UNIVERSITY','idrow',:old.idrow,:old.idrow,NULL,'DELETE',USER,SYSDATE);
+
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_UNIVERSITY','rowname',:old.idrow,:old.rowname,NULL,'DELETE',USER,SYSDATE);
+
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_UNIVERSITY','fk_group_id',:old.idrow,:old.fk_group_id,NULL,'DELETE',USER,SYSDATE);
+    END IF;
+
+END;

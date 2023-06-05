@@ -1,0 +1,125 @@
+create or replace TRIGGER TRG_STUDENT
+AFTER DELETE OR INSERT OR UPDATE ON SPR_STUDENT
+FOR EACH ROW
+BEGIN
+    IF inserting THEN
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_STUDENT','idrow',:new.idrow,NULL,:new.idrow,'INSERT',USER,SYSDATE);
+
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_STUDENT','rowfam',:new.idrow,NULL,:new.rowfam,'INSERT',USER,SYSDATE);
+
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_STUDENT','rowname',:new.idrow,NULL,:new.rowname,'INSERT',USER,SYSDATE);
+
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_STUDENT','rowotch',:new.idrow,NULL,:new.rowotch,'INSERT',USER,SYSDATE);
+        
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_STUDENT','rowsempoints',:new.idrow,NULL,:new.rowsempoints,'INSERT',USER,SYSDATE);        
+        
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_STUDENT','rowinn',:new.idrow,NULL,:new.rowinn,'INSERT',USER,SYSDATE);
+        
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_STUDENT','rowsnils',:new.idrow,NULL,:new.rowsnils,'INSERT',USER,SYSDATE);
+        
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_STUDENT','rowstudy_form',:new.idrow,NULL,:new.rowstudy_form,'INSERT',USER,SYSDATE);
+        
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_STUDENT','fk_school_id',:new.idrow,NULL,:new.fk_school_id,'INSERT',USER,SYSDATE);
+        
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_STUDENT','fk_city_id',:new.idrow,NULL,:new.fk_city_id,'INSERT',USER,SYSDATE);
+    END IF;
+
+
+
+    IF updating THEN
+        IF :new.idrow != :old.idrow THEN
+            INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+            VALUES (genprimkey('spr_changes'), 'SPR_STUDENT','idrow',:new.idrow,:old.idrow,:new.idrow,'UPDATE',USER,SYSDATE);
+        end if;
+
+        IF :new.rowfam != :old.rowfam THEN
+            INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+            VALUES (genprimkey('spr_changes'), 'SPR_STUDENT','rowfam',:old.idrow,:old.rowfam,:new.rowfam,'UPDATE',USER,SYSDATE);
+        end if;
+
+        IF :new.rowname != :old.rowname THEN
+            INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+            VALUES (genprimkey('spr_changes'), 'SPR_STUDENT','rowname',:old.idrow,:old.rowname,:new.rowname,'UPDATE',USER,SYSDATE);
+        end if;        
+
+        IF :new.rowotch != :old.rowotch THEN
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_STUDENT','rowotch',:old.idrow,:old.rowotch,:new.rowotch,'UPDATE',USER,SYSDATE);
+        end if;
+        
+        IF :new.rowsempoints != :old.rowsempoints THEN
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_STUDENT','rowsempoints',:old.idrow,:old.rowsempoints,:new.rowsempoints,'UPDATE',USER,SYSDATE);
+        end if;      
+        
+        IF :new.rowinn != :old.rowinn THEN
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_STUDENT','rowinn',:old.idrow,:old.rowinn,:new.rowinn,'UPDATE',USER,SYSDATE);
+        end if;
+        
+        IF :new.rowsnils != :old.rowsnils THEN
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_STUDENT','rowsnils',:old.idrow,:old.rowsnils,:new.rowsnils,'UPDATE',USER,SYSDATE);
+        end if;
+        
+        IF :new.rowstudy_form != :old.rowstudy_form THEN
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_STUDENT','rowstudy_form',:old.idrow,:old.rowstudy_form,:new.rowstudy_form,'UPDATE',USER,SYSDATE);
+        end if;
+        
+        IF :new.fk_school_id != :old.fk_school_id THEN
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_STUDENT','fk_school_id',:old.idrow,:old.fk_school_id,:new.fk_school_id,'UPDATE',USER,SYSDATE);
+        end if;
+        
+        IF :new.fk_city_id != :old.fk_city_id THEN
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_STUDENT','fk_city_id',:old.idrow,:old.fk_city_id,:new.fk_city_id,'UPDATE',USER,SYSDATE);
+        end if;
+    END IF;
+
+
+
+    IF deleting THEN
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_STUDENT','idrow',:old.idrow,:old.idrow,NULL,'DELETE',USER,SYSDATE);
+
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_STUDENT','rowfam',:old.idrow,:old.rowfam,NULL,'DELETE',USER,SYSDATE);
+
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_STUDENT','rowname',:old.idrow,:old.rowname,NULL,'DELETE',USER,SYSDATE);        
+
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_STUDENT','rowotch',:old.idrow,:old.rowotch,NULL,'DELETE',USER,SYSDATE);
+        
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_STUDENT','rowsempoints',:old.idrow,:old.rowsempoints,NULL,'DELETE',USER,SYSDATE);    
+        
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_STUDENT','rowinn',:old.idrow,:old.rowinn,NULL,'DELETE',USER,SYSDATE);
+        
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_STUDENT','rowsnils',:old.idrow,:old.rowsnils,NULL,'DELETE',USER,SYSDATE);
+        
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_STUDENT','rowstudy_form',:old.idrow,:old.rowstudy_form,NULL,'DELETE',USER,SYSDATE);
+        
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_STUDENT','fk_school_id',:old.idrow,:old.fk_school_id,NULL,'DELETE',USER,SYSDATE);
+        
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_STUDENT','fk_city_id',:old.idrow,:old.fk_city_id,NULL,'DELETE',USER,SYSDATE);
+    END IF;
+
+END;

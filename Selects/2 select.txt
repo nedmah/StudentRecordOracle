@@ -1,0 +1,9 @@
+SELECT SPR_SUBJECT.ROWNAME AS subject, AVG(SPR_EXAMROW.grade) AS grade, AVG(spr_student.rowsempoints + spr_exam.rowexam_points) AS points
+FROM SPR_SUBJECT
+
+
+INNER JOIN spr_exam ON spr_subject.idrow = spr_exam.fk_subject_id
+INNER JOIN spr_examrow ON spr_examrow.fk_exam_id = spr_exam.idrow
+INNER JOIN spr_student ON spr_student.idrow = spr_examrow.fk_student_id
+
+GROUP BY SPR_SUBJECT.ROWNAME;

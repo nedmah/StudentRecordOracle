@@ -1,0 +1,115 @@
+create or replace TRIGGER TRG_EXAM
+AFTER DELETE OR INSERT OR UPDATE ON SPR_EXAM
+FOR EACH ROW
+BEGIN
+    IF inserting THEN
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_EXAM','idrow',:new.idrow,NULL,:new.idrow,'INSERT',USER,SYSDATE);
+
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_EXAM','rowname',:new.idrow,NULL,:new.rowname,'INSERT',USER,SYSDATE);
+
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_EXAM','rowexam_points',:new.idrow,NULL,:new.rowexam_points,'INSERT',USER,SYSDATE);
+
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_EXAM','rowcabinet',:new.idrow,NULL,:new.rowcabinet,'INSERT',USER,SYSDATE);
+        
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_EXAM','rowdate',:new.idrow,NULL,:new.rowdate,'INSERT',USER,SYSDATE);
+
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_EXAM','rowsemestr',:new.idrow,NULL,:new.rowsemestr,'INSERT',USER,SYSDATE);
+
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_EXAM','rowcontrol_form',:new.idrow,NULL,:new.rowcontrol_form,'INSERT',USER,SYSDATE);
+
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_EXAM','fk_professor',:new.idrow,NULL,:new.fk_professor,'INSERT',USER,SYSDATE);
+
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_EXAM','fk_subject_id',:new.idrow,NULL,:new.fk_subject_id,'INSERT',USER,SYSDATE);
+
+    END IF;
+
+
+
+    IF updating THEN
+        IF :new.idrow != :old.idrow THEN
+            INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+            VALUES (genprimkey('spr_changes'), 'SPR_EXAM','idrow',:new.idrow,:old.idrow,:new.idrow,'UPDATE',USER,SYSDATE);
+        end if;
+
+        IF :new.rowname != :old.rowname THEN
+            INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+            VALUES (genprimkey('spr_changes'), 'SPR_EXAM','rowname',:old.idrow,:old.rowname,:new.rowname,'UPDATE',USER,SYSDATE);
+        end if;
+
+        IF :new.rowexam_points != :old.rowexam_points THEN
+            INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+            VALUES (genprimkey('spr_changes'), 'SPR_EXAM','rowexam_points',:old.idrow,:old.rowexam_points,:new.rowexam_points,'UPDATE',USER,SYSDATE);
+        end if;        
+
+        IF :new.rowcabinet != :old.rowcabinet THEN
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_EXAM','rowcabinet',:old.idrow,:old.rowcabinet,:new.rowcabinet,'UPDATE',USER,SYSDATE);
+        end if;
+        
+        IF :new.rowdate != :old.rowdate THEN
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_EXAM','rowdate',:old.idrow,:old.rowdate,:new.rowdate,'UPDATE',USER,SYSDATE);
+        end if;
+        
+        IF :new.rowsemestr != :old.rowsemestr THEN
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_EXAM','rowsemestr',:old.idrow,:old.rowsemestr,:new.rowsemestr,'UPDATE',USER,SYSDATE);
+        end if;
+        
+        IF :new.rowcontrol_form != :old.rowcontrol_form THEN
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_EXAM','rowcontrol_form',:old.idrow,:old.rowcontrol_form,:new.rowcontrol_form,'UPDATE',USER,SYSDATE);
+        end if;
+        
+        IF :new.fk_professor != :old.fk_professor THEN
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_EXAM','fk_professor',:old.idrow,:old.fk_professor,:new.fk_professor,'UPDATE',USER,SYSDATE);
+        end if;
+        
+        IF :new.fk_subject_id != :old.fk_subject_id THEN
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_EXAM','fk_subject_id',:old.idrow,:old.fk_subject_id,:new.fk_subject_id,'UPDATE',USER,SYSDATE);
+        end if;
+    END IF;
+
+
+
+    IF deleting THEN
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_EXAM','idrow',:old.idrow,:old.idrow,NULL,'DELETE',USER,SYSDATE);
+
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_EXAM','rowname',:old.idrow,:old.rowname,NULL,'DELETE',USER,SYSDATE);
+
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_EXAM','rowexam_points',:old.idrow,:old.rowexam_points,NULL,'DELETE',USER,SYSDATE);        
+
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_EXAM','rowcabinet',:old.idrow,:old.rowcabinet,NULL,'DELETE',USER,SYSDATE);
+        
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_EXAM','rowdate',:old.idrow,:old.rowdate,NULL,'DELETE',USER,SYSDATE);
+        
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_EXAM','rowsemestr',:old.idrow,:old.rowsemestr,NULL,'DELETE',USER,SYSDATE);
+        
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_EXAM','rowcontrol_form',:old.idrow,:old.rowcontrol_form,NULL,'DELETE',USER,SYSDATE);
+        
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_EXAM','fk_professor',:old.idrow,:old.fk_professor,NULL,'DELETE',USER,SYSDATE);
+        
+        INSERT INTO spr_changes (IDROW, table_name,column_name,object_id,oldvalue,newvalue,insert_update_delete,user_name,change_datetime) 
+        VALUES (genprimkey('spr_changes'), 'SPR_EXAM','fk_subject_id',:old.idrow,:old.fk_subject_id,NULL,'DELETE',USER,SYSDATE);
+    END IF;
+
+END;
